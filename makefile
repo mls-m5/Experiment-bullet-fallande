@@ -1,15 +1,21 @@
-FLAGS = -std=c++0x
-LIBS = -lGL -lGLU -lglut
-obj = main.o ship.o vector.o
+DEBUG = -d -g
+CXXFLAGS = -std=c++0x `pkg-config --cflags bullet` ${DEBUG}
+LFLAGS = ${DEBUG}
+LIBS = -d -lGL -lGLU -lglut `pkg-config --libs bullet`
+obj = main.o ship.o vector.o unit.o physics.o box.o
 Target = main
 
 all: $(obj)
-	g++ $(obj) -o $(Target) $(LIBS)
+	g++ ${LFLAGS} $(obj) -o $(Target) $(LIBS)
+
+clean:
+	rm *.o
 
 run: all
-	./$(Target)	
+	./$(Target)
 
+ship.o: ship.h komp.h unit.h
 
-ship.o: ship.h komp.h
+main.o: ship.h physics.h box.h
 
-main.o: ship.h
+physics.o: box.h

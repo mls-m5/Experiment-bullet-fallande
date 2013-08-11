@@ -1,5 +1,6 @@
 
 #include "vector.h"
+#include "unit.h"
 
 enum Commands{
     CMD_FIRE,
@@ -18,7 +19,7 @@ const int MappingKeys[CMD_MAX] = {
     'e',
 };
 
-class Ship{
+class Ship: public Unit{
 private:
     Vector pos;
     double angle;
